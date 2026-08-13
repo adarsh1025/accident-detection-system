@@ -1,28 +1,22 @@
-const OVERPASS_API = "https://overpass-api.de/api/interpreter";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const getNearbyHospitals = async (latitude, longitude) => {
-  const query = `
-    [out:json];
-    (
-      node["amenity"="hospital"](around:5000,${latitude},${longitude});
-      way["amenity"="hospital"](around:5000,${latitude},${longitude});
-      relation["amenity"="hospital"](around:5000,${latitude},${longitude});
+  try {
+    const response = await fetch(
+      `${API_URL}/api/hospitals/nearby?latitude=${latitude}&longitude=${longitude}`,
     );
-    out center;
-  `;
 
-  const response = await fetch(OVERPASS_API, {
-    method: "POST",
-    body: query,
-  });
+    if (!response.ok) {
+      throw new Error("Failed to fetch nearby hospitals");
+    }
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch nearby hospitals");
+    const data = await response.json();
+
+    return data.hospitals;
+  } catch (error) {
+    console.error("Nearby Hospital Error:", error);
+    throw error;
   }
-
-  const data = await response.json();
-
-  return data.elements;
 };
 
 // Calculate distance between two locations
@@ -32,7 +26,7 @@ export const calculateDistance = (
   hospitalLatitude,
   hospitalLongitude,
 ) => {
-  const R = 6371; // Earth radius in kilometers
+  const R = 6371;
 
   const dLat = ((hospitalLatitude - userLatitude) * Math.PI) / 180;
   const dLon = ((hospitalLongitude - userLongitude) * Math.PI) / 180;
