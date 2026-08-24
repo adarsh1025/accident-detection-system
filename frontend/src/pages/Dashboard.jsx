@@ -167,7 +167,7 @@ function Dashboard() {
 
   const fetchNearbyHospitals = async () => {
     if (!location) return;
-
+    console.log("Location for hospitals:", location);
     try {
       setLoadingHospitals(true);
 
