@@ -1,22 +1,49 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export const getNearbyHospitals = async (latitude, longitude) => {
-  try {
-    const response = await fetch(
-      `${API_URL}/api/hospitals/nearby?latitude=${latitude}&longitude=${longitude}`,
-    );
+  const url =
+    `${API_URL}/api/hospitals/nearby` +
+    `?latitude=${latitude}&longitude=${longitude}`;
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch nearby hospitals");
+  let lastError;
+
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      console.log(`Hospital API attempt ${attempt}`);
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+
+        throw new Error(
+          errorData.message ||
+            `Hospital API failed with status ${response.status}`,
+        );
+      }
+
+      const data = await response.json();
+
+      return Array.isArray(data.hospitals) ? data.hospitals : [];
+    } catch (error) {
+      console.error(`Hospital API attempt ${attempt} failed:`, error);
+
+      lastError = error;
+
+      if (attempt < 2) {
+        await wait(1000);
+      }
     }
-
-    const data = await response.json();
-
-    return data.hospitals;
-  } catch (error) {
-    console.error("Nearby Hospital Error:", error);
-    throw error;
   }
+
+  throw lastError;
 };
 
 // Calculate distance between two locations

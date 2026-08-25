@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/location";
+const BASE_URL = import.meta.env.VITE_API_URL;
+const API_URL = `${BASE_URL}/api/location`;
 // const API_URL = "http://192.168.1.8:5000/api/Location";
 
 export const saveLocation = async (location) => {
