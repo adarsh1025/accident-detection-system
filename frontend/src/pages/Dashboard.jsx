@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import MapView from "../components/MapView";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getProfile } from "../services/userService";
 import { saveLocation } from "../services/locationService";
 import { getContacts } from "../services/contactService";
@@ -25,7 +25,7 @@ function Dashboard() {
   const [motionMagnitude, setMotionMagnitude] = useState(0);
   const [motionWorking, setMotionWorking] = useState(false);
   const [accidentDetected, setAccidentDetected] = useState(false);
-
+  const accidentTriggeredRef = useRef(false);
   // handleMotion
   const handleMotion = (event) => {
     const acceleration = event.accelerationIncludingGravity;
@@ -43,8 +43,16 @@ function Dashboard() {
 
     const ACCIDENT_THRESHOLD = 25;
 
-    if (magnitude >= ACCIDENT_THRESHOLD) {
+    if (magnitude >= ACCIDENT_THRESHOLD && !accidentTriggeredRef.current) {
+      accidentTriggeredRef.current = true;
+
       setAccidentDetected(true);
+
+      // Automatic SOS countdown start
+      setSOSPending(true);
+      setSOSCountdown(10);
+
+      toast.error("🚨 Possible Accident Detected!");
     }
   };
 
@@ -135,6 +143,9 @@ function Dashboard() {
   const cancelSOS = () => {
     setSOSCountdown(null);
     setSOSPending(false);
+    setAccidentDetected(false);
+
+    accidentTriggeredRef.current = false;
 
     toast.success("SOS Cancelled");
   };
@@ -282,6 +293,7 @@ function Dashboard() {
             <p className="text-gray-600">Total Contacts: {contactsCount}</p>
           </div>
 
+          {/* Motion Sensor */}
           <div className="bg-white shadow rounded-xl p-6">
             <h2 className="text-xl font-semibold mb-3">📱 Motion Sensor</h2>
 
