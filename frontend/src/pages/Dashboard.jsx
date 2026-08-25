@@ -22,6 +22,9 @@ function Dashboard() {
   const [loadingHospitals, setLoadingHospitals] = useState(false);
   const [sosCountdown, setSOSCountdown] = useState(null);
   const [sosPending, setSOSPending] = useState(false);
+  const [motionMagnitude, setMotionMagnitude] = useState(0);
+  const [motionWorking, setMotionWorking] = useState(false);
+  const [accidentDetected, setAccidentDetected] = useState(false);
 
   // handleMotion
   const handleMotion = (event) => {
@@ -35,17 +38,13 @@ function Dashboard() {
 
     const magnitude = Math.sqrt(x * x + y * y + z * z);
 
-    console.log("Motion:", {
-      x,
-      y,
-      z,
-      magnitude,
-    });
+    setMotionWorking(true);
+    setMotionMagnitude(magnitude);
 
     const ACCIDENT_THRESHOLD = 25;
 
     if (magnitude >= ACCIDENT_THRESHOLD) {
-      console.log("🚨 POSSIBLE ACCIDENT DETECTED!");
+      setAccidentDetected(true);
     }
   };
 
@@ -281,6 +280,33 @@ function Dashboard() {
             </h2>
 
             <p className="text-gray-600">Total Contacts: {contactsCount}</p>
+          </div>
+
+          <div className="bg-white shadow rounded-xl p-6">
+            <h2 className="text-xl font-semibold mb-3">📱 Motion Sensor</h2>
+
+            <p className="text-gray-600">
+              Status:{" "}
+              {motionWorking ? (
+                <span className="text-green-600 font-semibold">Working ✅</span>
+              ) : (
+                <span className="text-red-600 font-semibold">
+                  Waiting for sensor...
+                </span>
+              )}
+            </p>
+
+            <p className="text-gray-600 mt-2">
+              Motion Magnitude: {motionMagnitude.toFixed(2)}
+            </p>
+
+            {accidentDetected && (
+              <div className="mt-4 bg-red-100 border border-red-400 p-4 rounded-lg">
+                <p className="text-red-700 font-bold">
+                  🚨 POSSIBLE ACCIDENT DETECTED!
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="bg-white shadow rounded-xl p-6">
