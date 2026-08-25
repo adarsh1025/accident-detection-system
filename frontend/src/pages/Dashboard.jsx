@@ -41,7 +41,7 @@ function Dashboard() {
     setMotionWorking(true);
     setMotionMagnitude(magnitude);
 
-    const ACCIDENT_THRESHOLD = 25;
+    const ACCIDENT_THRESHOLD = 10;
 
     if (magnitude >= ACCIDENT_THRESHOLD && !accidentTriggeredRef.current) {
       accidentTriggeredRef.current = true;
