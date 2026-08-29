@@ -26,6 +26,7 @@ function Dashboard() {
   const [motionWorking, setMotionWorking] = useState(false);
   const [accidentDetected, setAccidentDetected] = useState(false);
   const accidentTriggeredRef = useRef(false);
+  const [cooldownActive, setCooldownActive] = useState(false);
   // handleMotion
   const handleMotion = (event) => {
     const acceleration = event.accelerationIncludingGravity;
@@ -43,7 +44,11 @@ function Dashboard() {
 
     const ACCIDENT_THRESHOLD = 10;
 
-    if (magnitude >= ACCIDENT_THRESHOLD && !accidentTriggeredRef.current) {
+    if (
+      magnitude >= ACCIDENT_THRESHOLD &&
+      !accidentTriggeredRef.current &&
+      !cooldownActive
+    ) {
       accidentTriggeredRef.current = true;
 
       setAccidentDetected(true);
@@ -168,6 +173,13 @@ function Dashboard() {
 
       toast.success("SOS Sent Successfully 🚨");
       await fetchSOSHistory();
+      setCooldownActive(true);
+
+      setTimeout(() => {
+        accidentTriggeredRef.current = false;
+        setAccidentDetected(false);
+        setCooldownActive(false);
+      }, 30000);
     } catch (error) {
       console.log(error);
 
@@ -307,7 +319,6 @@ function Dashboard() {
                 </span>
               )}
             </p>
-
             <p className="text-gray-600 mt-2">
               Motion Magnitude: {motionMagnitude.toFixed(2)}
             </p>
@@ -318,6 +329,11 @@ function Dashboard() {
                   🚨 POSSIBLE ACCIDENT DETECTED!
                 </p>
               </div>
+            )}
+            {cooldownActive && (
+              <p className="text-orange-600 font-semibold mt-2">
+                ⏳ Accident detection cooldown active...
+              </p>
             )}
           </div>
 
