@@ -167,8 +167,15 @@ function Login() {
         </div>
 
         {/* Login Form Card */}
-        <div className="bg-[#13051f]/90 border border-purple-400/20 backdrop-blur-xl rounded-3xl shadow-2xl p-7 md:p-9">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+        <div className="relative overflow-hidden bg-[#12051f]/80 border border-white/10 backdrop-blur-2xl rounded-[28px] p-7 md:p-9 shadow-[0_25px_80px_rgba(0,0,0,0.55)]">
+          {/* Cyber Glow Layers */}
+          <div className="absolute -top-16 -right-16 w-40 h-40 bg-pink-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div className="absolute -bottom-20 -left-16 w-48 h-48 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div className="absolute inset-0 rounded-[28px] border border-purple-300/10 pointer-events-none"></div>
+
+          <form className="relative z-10 space-y-6" onSubmit={handleSubmit}>
             {/* Email */}
             <div>
               <label className="block mb-2 text-gray-300 font-medium">
@@ -181,7 +188,7 @@ function Login() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter your email"
-                className="w-full bg-[#1d1029] border border-purple-300/20 text-white placeholder-gray-500 p-4 rounded-xl outline-none transition focus:border-pink-400 focus:ring-2 focus:ring-pink-400/20"
+                className="w-full bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 p-4 rounded-2xl outline-none transition-all duration-300 focus:border-pink-400/70 focus:bg-white/[0.06] focus:ring-4 focus:ring-pink-500/10 hover:border-white/20"
               />
             </div>
 
@@ -197,21 +204,21 @@ function Login() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Enter your password"
-                className="w-full bg-[#1d1029] border border-purple-300/20 text-white placeholder-gray-500 p-4 rounded-xl outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
+                className="w-full bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 p-4 rounded-2xl outline-none transition-all duration-300 focus:border-cyan-400/70 focus:bg-white/[0.06] focus:ring-4 focus:ring-cyan-400/10 hover:border-white/20"
               />
             </div>
 
             {/* Login Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-400 text-[#100318] font-bold text-lg p-4 rounded-xl transition duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-pink-500/20"
+              className="relative overflow-hidden w-full bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-400 text-[#100318] font-bold text-lg p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_35px_rgba(236,72,153,0.25)] active:scale-[0.99]"
             >
               Login
             </button>
           </form>
 
           {/* Register */}
-          <p className="text-center mt-7 text-gray-400">
+          <p className="relative z-10 text-center mt-7 text-gray-400">
             Don't have an account?{" "}
             <Link
               to="/register"
