@@ -27,6 +27,9 @@ function Dashboard() {
   const [accidentDetected, setAccidentDetected] = useState(false);
   const accidentTriggeredRef = useRef(false);
   const [cooldownActive, setCooldownActive] = useState(false);
+  const [accidentDetectionEnabled, setAccidentDetectionEnabled] =
+    useState(false);
+
   // handleMotion
   const handleMotion = (event) => {
     const acceleration = event.accelerationIncludingGravity;
@@ -45,6 +48,7 @@ function Dashboard() {
     const ACCIDENT_THRESHOLD = 10;
 
     if (
+      accidentDetectionEnabled &&
       magnitude >= ACCIDENT_THRESHOLD &&
       !accidentTriggeredRef.current &&
       !cooldownActive
@@ -59,6 +63,15 @@ function Dashboard() {
 
       toast.error("🚨 Possible Accident Detected!");
     }
+  };
+
+  // Toggle function
+
+  const toggleAccidentDetection = () => {
+    setAccidentDetectionEnabled((prev) => !prev);
+
+    setAccidentDetected(false);
+    accidentTriggeredRef.current = false;
   };
 
   useEffect(() => {
@@ -322,6 +335,18 @@ function Dashboard() {
             <p className="text-gray-600 mt-2">
               Motion Magnitude: {motionMagnitude.toFixed(2)}
             </p>
+            <button
+              onClick={toggleAccidentDetection}
+              className={`mt-4 px-5 py-2 rounded-lg text-white ${
+                accidentDetectionEnabled
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-gray-600 hover:bg-gray-700"
+              }`}
+            >
+              {accidentDetectionEnabled
+                ? "🟢 Accident Detection ON"
+                : "🔴 Accident Detection OFF"}
+            </button>
 
             {accidentDetected && (
               <div className="mt-4 bg-red-100 border border-red-400 p-4 rounded-lg">
