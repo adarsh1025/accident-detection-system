@@ -573,82 +573,134 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="bg-white shadow rounded-xl p-6">
-            <h2 className="text-xl font-semibold mb-2">🚨 Emergency SOS</h2>
+          {/* Emergency SOS */}
 
-            {!sosPending ? (
-              <button
-                onClick={startSOSCountdown}
-                className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg"
-              >
-                🚨 Send SOS
-              </button>
-            ) : (
-              <div className="text-center">
-                <p className="text-lg font-semibold text-red-600 mb-3">
-                  🚨 SOS will be sent in
-                </p>
+          <div className="relative overflow-hidden rounded-2xl border border-red-400/20 bg-[#160a24]/70 p-6 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-300 hover:border-red-400/40 hover:shadow-[0_20px_60px_rgba(248,113,113,0.08)]">
+            {/* Red Glow */}
+            <div className="absolute -top-20 -right-20 h-44 w-44 rounded-full bg-red-500/10 blur-3xl pointer-events-none"></div>
 
-                <p className="text-5xl font-bold text-red-600 mb-4">
-                  {sosCountdown}
-                </p>
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-5">
+                <h2 className="text-xl font-semibold text-white">
+                  🚨 Emergency SOS
+                </h2>
 
-                <button
-                  onClick={cancelSOS}
-                  className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg"
-                >
-                  Cancel SOS
-                </button>
+                <div className="h-3 w-3 rounded-full bg-red-400 shadow-[0_0_14px_rgba(248,113,113,0.8)]"></div>
               </div>
-            )}
+
+              {!sosPending ? (
+                <div>
+                  <p className="text-gray-400 text-sm mb-5">
+                    Send an emergency alert with your current location.
+                  </p>
+
+                  <button
+                    onClick={startSOSCountdown}
+                    className="w-full bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 text-white font-bold px-6 py-4 rounded-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_0_35px_rgba(239,68,68,0.25)] active:scale-[0.98]"
+                  >
+                    🚨 Send SOS
+                  </button>
+                </div>
+              ) : (
+                <div className="text-center rounded-2xl border border-red-400/20 bg-red-500/[0.07] p-5">
+                  <p className="text-sm uppercase tracking-[0.2em] font-semibold text-red-300 mb-3">
+                    🚨 SOS will be sent in
+                  </p>
+
+                  <p className="text-6xl font-black bg-gradient-to-r from-red-400 via-pink-400 to-purple-400 bg-clip-text text-transparent mb-5">
+                    {sosCountdown}
+                  </p>
+
+                  <button
+                    onClick={cancelSOS}
+                    className="w-full sm:w-auto border border-white/10 bg-white/[0.05] text-gray-200 font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:border-red-400/40 hover:bg-red-500/10 hover:text-red-200 active:scale-[0.98]"
+                  >
+                    Cancel SOS
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
-          <div className="bg-white shadow rounded-xl p-6">
-            <h2 className="text-xl font-semibold mb-4">
-              📜 Recent SOS History
-            </h2>
+          {/* Recent SOS History */}
 
-            {sosHistory.length === 0 ? (
-              <p className="text-gray-600">No SOS history found.</p>
-            ) : (
-              sosHistory.slice(0, 5).map((item) => (
-                <div key={item._id} className="border rounded-lg p-4 mb-3">
-                  <p className="font-medium">🚨 SOS Alert</p>
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#160a24]/70 p-6 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
+            {/* Background Glow */}
+            <div className="absolute -bottom-20 -right-20 h-44 w-44 rounded-full bg-purple-500/10 blur-3xl pointer-events-none"></div>
 
-                  <p className="text-gray-600 mt-2">
-                    📍 User Location: {item.latitude}, {item.longitude}
-                  </p>
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-5">
+                <h2 className="text-xl font-semibold text-white">
+                  📜 Recent SOS History
+                </h2>
 
-                  {item.hospitalName && (
-                    <p className="text-gray-600 mt-1">
-                      🏥 Nearest Hospital: {item.hospitalName}
-                    </p>
-                  )}
+                <span className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs text-gray-400">
+                  {sosHistory.length}
+                </span>
+              </div>
 
-                  {item.hospitalDistance !== null &&
-                    item.hospitalDistance !== undefined && (
-                      <p className="text-gray-600 mt-1">
-                        📏 Distance: {item.hospitalDistance.toFixed(2)} km
-                      </p>
-                    )}
-
-                  {item.hospitalLatitude && item.hospitalLongitude && (
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${item.hospitalLatitude},${item.hospitalLongitude}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
-                    >
-                      🗺 Open Hospital Location
-                    </a>
-                  )}
-
-                  <p className="text-sm text-gray-500 mt-3">
-                    🕐 {new Date(item.createdAt).toLocaleString()}
-                  </p>
+              {sosHistory.length === 0 ? (
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-5 text-center">
+                  <p className="text-gray-400">No SOS history found.</p>
                 </div>
-              ))
-            )}
+              ) : (
+                <div className="space-y-4">
+                  {sosHistory.slice(0, 5).map((item) => (
+                    <div
+                      key={item._id}
+                      className="rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-all duration-300 hover:border-pink-400/25 hover:bg-white/[0.05]"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="font-semibold text-red-300">
+                          🚨 SOS Alert
+                        </p>
+
+                        <span className="text-xs text-gray-500">
+                          {new Date(item.createdAt).toLocaleString()}
+                        </span>
+                      </div>
+
+                      <p className="text-gray-400 mt-3 text-sm">
+                        📍 User Location:{" "}
+                        <span className="text-gray-200">
+                          {item.latitude}, {item.longitude}
+                        </span>
+                      </p>
+
+                      {item.hospitalName && (
+                        <p className="text-gray-400 mt-2 text-sm">
+                          🏥 Nearest Hospital:{" "}
+                          <span className="text-cyan-300 font-medium">
+                            {item.hospitalName}
+                          </span>
+                        </p>
+                      )}
+
+                      {item.hospitalDistance !== null &&
+                        item.hospitalDistance !== undefined && (
+                          <p className="text-gray-400 mt-2 text-sm">
+                            📏 Distance:{" "}
+                            <span className="text-purple-300 font-medium">
+                              {item.hospitalDistance.toFixed(2)} km
+                            </span>
+                          </p>
+                        )}
+
+                      {item.hospitalLatitude && item.hospitalLongitude && (
+                        <a
+                          href={`https://www.google.com/maps/search/?api=1&query=${item.hospitalLatitude},${item.hospitalLongitude}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center mt-4 border border-cyan-400/20 bg-cyan-400/10 text-cyan-300 font-semibold px-4 py-2 rounded-lg transition-all duration-300 hover:bg-cyan-400/20 hover:border-cyan-400/40"
+                        >
+                          🗺 Open Hospital Location
+                        </a>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="bg-white shadow rounded-xl p-6">
