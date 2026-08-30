@@ -48,6 +48,12 @@ function Dashboard() {
 
     const ACCIDENT_THRESHOLD = 10;
 
+    console.log("Magnitude:", magnitude);
+    console.log("Ride Active:", rideActive);
+    console.log("Detection Enabled:", accidentDetectionEnabled);
+    console.log("Cooldown:", cooldownActive);
+    console.log("Triggered Ref:", accidentTriggeredRef.current);
+
     if (
       rideActive &&
       accidentDetectionEnabled &&
@@ -55,6 +61,7 @@ function Dashboard() {
       !accidentTriggeredRef.current &&
       !cooldownActive
     ) {
+      console.log("🚨 ACCIDENT CONDITION TRUE");
       accidentTriggeredRef.current = true;
 
       setAccidentDetected(true);
