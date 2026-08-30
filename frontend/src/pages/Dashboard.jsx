@@ -109,7 +109,7 @@ function Dashboard() {
     return () => {
       window.removeEventListener("devicemotion", handleMotion);
     };
-  }, []);
+  }, [rideActive, accidentDetectionEnabled, cooldownActive]);
 
   const fetchContactsCount = async () => {
     try {
