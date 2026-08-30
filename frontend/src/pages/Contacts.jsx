@@ -117,33 +117,82 @@ function Contacts() {
           editData={editData}
           isEditing={isEditing}
         />
+
+        {/* Contacts List */}
+
         {contacts.length === 0 ? (
-          <p>No contacts found.</p>
+          <div className="rounded-2xl border border-white/10 bg-[#160a24]/70 p-8 text-center backdrop-blur-xl">
+            <p className="text-gray-400">No contacts found.</p>
+          </div>
         ) : (
-          contacts.map((contact) => (
-            <div
-              key={contact._id}
-              className="border rounded-lg p-4 mb-4 shadow"
-            >
-              <h2 className="text-lg font-semibold">{contact.name}</h2>
-
-              <p>{contact.phone}</p>
-
-              <p>{contact.relation}</p>
-              <button
-                onClick={() => handleEdit(contact)}
-                className="mt-3 mr-2 bg-blue-600 text-white px-4 py-2 rounded"
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {contacts.map((contact) => (
+              <div
+                key={contact._id}
+                className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#160a24]/70 p-5 sm:p-6 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.30)] transition-all duration-300 hover:border-cyan-400/30 hover:shadow-[0_20px_60px_rgba(34,211,238,0.08)]"
               >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(contact._id)}
-                className="mt-3 bg-red-600 text-white px-4 py-2 rounded"
-              >
-                Delete
-              </button>
-            </div>
-          ))
+                {/* Glow */}
+                <div className="absolute -top-16 -right-16 h-36 w-36 rounded-full bg-purple-500/10 blur-3xl pointer-events-none"></div>
+
+                <div className="relative z-10">
+                  {/* Contact Header */}
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.2em] text-pink-400 mb-1">
+                        Emergency Contact
+                      </p>
+
+                      <h2 className="text-xl font-semibold text-white">
+                        {contact.name}
+                      </h2>
+                    </div>
+
+                    {/* Contact Icon */}
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-400 text-[#0a0512] font-bold shadow-[0_0_20px_rgba(236,72,153,0.15)]">
+                      {contact.name
+                        ? contact.name.charAt(0).toUpperCase()
+                        : "C"}
+                    </div>
+                  </div>
+
+                  {/* Phone */}
+                  <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                    <p className="text-xs text-gray-500 mb-1">Phone Number</p>
+
+                    <p className="text-gray-200">📞 {contact.phone}</p>
+                  </div>
+
+                  {/* Relation */}
+                  <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                    <p className="text-xs text-gray-500 mb-1">Relation</p>
+
+                    <p className="text-cyan-300 font-medium">
+                      👤 {contact.relation}
+                    </p>
+                  </div>
+
+                  {/* Buttons */}
+                  <div className="mt-5 flex flex-col sm:flex-row gap-3">
+                    {/* Edit */}
+                    <button
+                      onClick={() => handleEdit(contact)}
+                      className="flex-1 rounded-xl border border-cyan-400/20 bg-cyan-400/10 px-4 py-3 font-semibold text-cyan-300 transition-all duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/20 hover:shadow-[0_0_20px_rgba(34,211,238,0.08)] active:scale-[0.98]"
+                    >
+                      ✏️ Edit
+                    </button>
+
+                    {/* Delete */}
+                    <button
+                      onClick={() => handleDelete(contact._id)}
+                      className="flex-1 rounded-xl border border-red-400/20 bg-red-500/10 px-4 py-3 font-semibold text-red-300 transition-all duration-300 hover:border-red-400/40 hover:bg-red-500/20 hover:shadow-[0_0_20px_rgba(248,113,113,0.08)] active:scale-[0.98]"
+                    >
+                      🗑 Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>
