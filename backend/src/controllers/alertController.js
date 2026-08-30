@@ -15,6 +15,9 @@ const triggerSOS = async (req, res) => {
       hospitalDistance,
     } = req.body;
 
+    console.log("SOS BODY:", req.body);
+    console.log("Hospital Distance:", hospitalDistance);
+
     if (!latitude || !longitude) {
       return res.status(400).json({
         message: "Latitude and Longitude are required",
