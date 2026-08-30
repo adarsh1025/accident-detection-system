@@ -703,56 +703,136 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="bg-white shadow rounded-xl p-6">
-            <h2 className="text-xl font-semibold mb-4">🏥 Nearby Hospitals</h2>
+          {/* Nearby Hospitals */}
 
-            {loadingHospitals ? (
-              <p className="text-gray-600">Finding nearby hospitals...</p>
-            ) : hospitals.length === 0 ? (
-              <p className="text-gray-600">No hospitals found.</p>
-            ) : (
-              hospitals.slice(0, 5).map((hospital) => (
-                <div key={hospital.id} className="border rounded-lg p-4 mb-3">
-                  <h3 className="font-semibold text-lg">
-                    {hospital.tags?.name || "Unnamed Hospital"}
-                  </h3>
-                  {hospital.tags?.["addr:full"] && (
-                    <p className="text-gray-600 mt-1">
-                      🏠 {hospital.tags["addr:full"]}
-                    </p>
-                  )}
-                  {hospital.tags?.["addr:postcode"] && (
-                    <p className="text-gray-600 mt-1">
-                      📮 {hospital.tags["addr:postcode"]}
-                    </p>
-                  )}
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#160a24]/70 p-6 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
+            {/* Cyan Glow */}
+            <div className="absolute -top-20 -right-20 h-44 w-44 rounded-full bg-cyan-400/10 blur-3xl pointer-events-none"></div>
 
-                  <p className="text-gray-600 mt-1">
-                    📍 {hospital.distance.toFixed(2)} km away
-                  </p>
+            <div className="relative z-10">
+              {/* Header */}
+              <div className="flex items-center justify-between gap-4 mb-5">
+                <h2 className="text-xl font-semibold text-white">
+                  🏥 Nearby Hospitals
+                </h2>
 
-                  <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${hospital.hospitalLatitude},${hospital.hospitalLongitude}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
-                  >
-                    🗺 Open in Google Maps
-                  </a>
+                <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-300">
+                  {hospitals.length}
+                </span>
+              </div>
+
+              {loadingHospitals ? (
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+                  <p className="text-gray-400">Finding nearby hospitals...</p>
                 </div>
-              ))
-            )}
+              ) : hospitals.length === 0 ? (
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+                  <p className="text-gray-400">No hospitals found.</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {hospitals.slice(0, 5).map((hospital, index) => (
+                    <div
+                      key={hospital.id}
+                      className="rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-all duration-300 hover:border-cyan-400/30 hover:bg-white/[0.05]"
+                    >
+                      {/* Hospital Header */}
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.18em] text-gray-500 mb-1">
+                            Hospital {index + 1}
+                          </p>
+
+                          <h3 className="text-lg font-semibold text-white">
+                            {hospital.tags?.name || "Unnamed Hospital"}
+                          </h3>
+                        </div>
+
+                        {/* Distance Badge */}
+                        <span className="shrink-0 rounded-full border border-purple-400/20 bg-purple-500/10 px-3 py-1 text-xs font-semibold text-purple-300">
+                          {hospital.distance.toFixed(2)} km
+                        </span>
+                      </div>
+
+                      {/* Address */}
+                      {hospital.tags?.["addr:full"] && (
+                        <p className="text-gray-400 mt-3 text-sm">
+                          🏠{" "}
+                          <span className="text-gray-300">
+                            {hospital.tags["addr:full"]}
+                          </span>
+                        </p>
+                      )}
+
+                      {/* Postcode */}
+                      {hospital.tags?.["addr:postcode"] && (
+                        <p className="text-gray-400 mt-2 text-sm">
+                          📮 Postcode:{" "}
+                          <span className="text-gray-300">
+                            {hospital.tags["addr:postcode"]}
+                          </span>
+                        </p>
+                      )}
+
+                      {/* Distance */}
+                      <p className="text-gray-400 mt-2 text-sm">
+                        📍{" "}
+                        <span className="text-cyan-300 font-medium">
+                          {hospital.distance.toFixed(2)} km away
+                        </span>
+                      </p>
+
+                      {/* Google Maps */}
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${hospital.hospitalLatitude},${hospital.hospitalLongitude}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center mt-4 border border-cyan-400/20 bg-cyan-400/10 text-cyan-300 font-semibold px-4 py-2 rounded-lg transition-all duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/20 hover:shadow-[0_0_20px_rgba(34,211,238,0.08)]"
+                      >
+                        🗺 Open in Google Maps
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-        <div className="mt-8 border rounded-lg p-6 shadow">
-          <h2 className="text-xl font-semibold mb-3">Emergency Contacts</h2>
 
-          <Link
-            to="/contacts"
-            className="bg-blue-600 text-white px-4 py-2 rounded"
-          >
-            Manage Contacts
-          </Link>
+        {/* Manage Emergency Contacts */}
+
+        <div className="relative mt-8 overflow-hidden rounded-2xl border border-white/10 bg-[#160a24]/70 p-6 sm:p-7 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
+          {/* Pink Glow */}
+          <div className="absolute -top-24 -left-20 h-48 w-48 rounded-full bg-pink-500/10 blur-3xl pointer-events-none"></div>
+
+          {/* Cyan Glow */}
+          <div className="absolute -bottom-24 -right-20 h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl pointer-events-none"></div>
+
+          <div className="relative z-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            {/* Text */}
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-pink-400 mb-2">
+                Safety Network
+              </p>
+
+              <h2 className="text-xl sm:text-2xl font-semibold text-white">
+                👨‍👩‍👧 Emergency Contacts
+              </h2>
+
+              <p className="mt-2 text-sm text-gray-400">
+                Total Contacts:{" "}
+                <span className="font-bold text-cyan-300">{contactsCount}</span>
+              </p>
+            </div>
+
+            {/* Manage Button */}
+            <Link
+              to="/contacts"
+              className="inline-flex items-center justify-center bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 text-[#0a0512] font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(236,72,153,0.20)] active:scale-[0.98]"
+            >
+              Manage Contacts
+            </Link>
+          </div>
         </div>
       </div>
     </div>
