@@ -90,7 +90,7 @@ function Login() {
   // );
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#090014] flex items-center justify-center px-4 py-10">
+    <div className="min-h-screen relative overflow-hidden bg-[#090014] flex items-center justify-center px-4 sm:px-6 py-8 sm:py-10">
       {/* Background Glow */}
       <div className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-gradient-to-b from-pink-500/40 via-purple-500/20 to-transparent rounded-full blur-3xl"></div>
 
@@ -154,20 +154,28 @@ function Login() {
       </div>
 
       {/* Main Login Card */}
-      <div className="relative z-10 w-full max-w-md mt-40">
+      <div className="relative z-10 w-full max-w-md mt-36 sm:mt-40">
         {/* Top Branding */}
-        <div className="text-center mb-8">
-          <p className="text-pink-400 tracking-[0.35em] text-sm font-semibold uppercase mb-3">
-            SafeRide AI 🚑
+        <div className="text-center mb-7">
+          <div className="inline-flex items-center justify-center mb-3">
+            <span className="text-pink-400 tracking-[0.35em] text-xs sm:text-sm font-bold uppercase">
+              SafeRide AI
+            </span>
+
+            <span className="ml-2 text-xl">🚑</span>
+          </div>
+
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
+            Login
+          </h1>
+
+          <p className="text-gray-400 text-sm sm:text-base mt-3">
+            Login to your account
           </p>
-
-          <h1 className="text-4xl md:text-5xl font-bold text-white">Login</h1>
-
-          <p className="text-gray-400 mt-3">Login to your account</p>
         </div>
 
         {/* Login Form Card */}
-        <div className="relative overflow-hidden bg-[#12051f]/80 border border-white/10 backdrop-blur-2xl rounded-[28px] p-7 md:p-9 shadow-[0_25px_80px_rgba(0,0,0,0.55)]">
+        <div className="relative overflow-hidden bg-[#12051f]/80 border border-white/10 backdrop-blur-2xl rounded-[24px] sm:rounded-[28px] p-5 sm:p-7 md:p-9 shadow-[0_25px_80px_rgba(0,0,0,0.55)]">
           {/* Cyber Glow Layers */}
           <div className="absolute -top-16 -right-16 w-40 h-40 bg-pink-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -178,7 +186,7 @@ function Login() {
           <form className="relative z-10 space-y-6" onSubmit={handleSubmit}>
             {/* Email */}
             <div>
-              <label className="block mb-2 text-gray-300 font-medium">
+              <label className="block mb-2 text-gray-300 text-sm font-medium">
                 Email
               </label>
 
@@ -194,7 +202,7 @@ function Login() {
 
             {/* Password */}
             <div>
-              <label className="block mb-2 text-gray-300 font-medium">
+              <label className="block mb-2 text-gray-300 text-sm font-medium">
                 Password
               </label>
 
@@ -218,7 +226,7 @@ function Login() {
           </form>
 
           {/* Register */}
-          <p className="relative z-10 text-center mt-7 text-gray-400">
+          <p className="relative z-10 text-center mt-6 sm:mt-7 text-sm sm:text-base text-gray-400">
             Don't have an account?{" "}
             <Link
               to="/register"
