@@ -49,6 +49,7 @@ function Dashboard() {
     const ACCIDENT_THRESHOLD = 10;
 
     if (
+      rideActive &&
       accidentDetectionEnabled &&
       magnitude >= ACCIDENT_THRESHOLD &&
       !accidentTriggeredRef.current &&
