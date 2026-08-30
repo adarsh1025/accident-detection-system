@@ -96,8 +96,65 @@ function Login() {
 
       <div className="absolute bottom-[-150px] right-[-100px] w-[350px] h-[350px] bg-cyan-400/10 rounded-full blur-3xl"></div>
 
+      {/* Top Route Visual */}
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 w-[320px] h-[180px] z-10 pointer-events-none">
+        <svg viewBox="0 0 320 180" className="w-full h-full" fill="none">
+          <defs>
+            <linearGradient
+              id="routeGradient"
+              x1="50"
+              y1="150"
+              x2="260"
+              y2="20"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#ec4899" />
+              <stop offset="0.5" stopColor="#a855f7" />
+              <stop offset="1" stopColor="#22d3ee" />
+            </linearGradient>
+          </defs>
+
+          {/* Route Line */}
+          <path
+            d="M65 145
+         C110 140, 125 115, 115 90
+         C100 55, 150 45, 185 40
+         C220 35, 235 25, 265 20"
+            stroke="url(#routeGradient)"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeDasharray="10 10"
+            className="drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]"
+          />
+
+          {/* Start Point */}
+          <circle
+            cx="65"
+            cy="145"
+            r="8"
+            fill="#ec4899"
+            className="drop-shadow-[0_0_10px_rgba(236,72,153,1)]"
+          />
+
+          {/* End Point */}
+          <circle
+            cx="265"
+            cy="20"
+            r="7"
+            fill="#22d3ee"
+            className="drop-shadow-[0_0_10px_rgba(34,211,238,1)]"
+          />
+        </svg>
+
+        {/* Pink Glow */}
+        <div className="absolute left-[49px] bottom-[21px] w-8 h-8 bg-pink-500/30 rounded-full blur-lg animate-pulse"></div>
+
+        {/* Cyan Glow */}
+        <div className="absolute right-[39px] top-[3px] w-7 h-7 bg-cyan-400/30 rounded-full blur-lg animate-pulse"></div>
+      </div>
+
       {/* Main Login Card */}
-      <div className="relative z-10 w-full max-w-md">
+      <div className="relative z-10 w-full max-w-md mt-40">
         {/* Top Branding */}
         <div className="text-center mb-8">
           <p className="text-pink-400 tracking-[0.35em] text-sm font-semibold uppercase mb-3">
