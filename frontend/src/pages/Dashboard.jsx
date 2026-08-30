@@ -29,6 +29,7 @@ function Dashboard() {
   const [cooldownActive, setCooldownActive] = useState(false);
   const [accidentDetectionEnabled, setAccidentDetectionEnabled] =
     useState(false);
+  const [rideActive, setRideActive] = useState(false);
 
   // handleMotion
   const handleMotion = (event) => {
@@ -72,6 +73,33 @@ function Dashboard() {
 
     setAccidentDetected(false);
     accidentTriggeredRef.current = false;
+  };
+
+  // startRide function
+
+  const startRide = () => {
+    setRideActive(true);
+    setAccidentDetectionEnabled(true);
+
+    setAccidentDetected(false);
+    accidentTriggeredRef.current = false;
+
+    toast.success("🚗 Ride Started - Accident Detection ON");
+  };
+
+  // End Ride function
+
+  const endRide = () => {
+    setRideActive(false);
+    setAccidentDetectionEnabled(false);
+
+    setAccidentDetected(false);
+    setSOSCountdown(null);
+    setSOSPending(false);
+
+    accidentTriggeredRef.current = false;
+
+    toast.success("🏁 Ride Ended - Accident Detection OFF");
   };
 
   useEffect(() => {
@@ -318,7 +346,43 @@ function Dashboard() {
             <p className="text-gray-600">Total Contacts: {contactsCount}</p>
           </div>
 
-          {/* Motion Sensor */}
+          {/* Ride Mode */}
+
+          <div className="bg-white shadow rounded-xl p-6">
+            <h2 className="text-xl font-semibold mb-3">🚗 Ride Mode</h2>
+
+            <p className="text-gray-600 mb-4">
+              Status:{" "}
+              {rideActive ? (
+                <span className="text-green-600 font-semibold">
+                  Ride Active 🟢
+                </span>
+              ) : (
+                <span className="text-gray-600 font-semibold">
+                  Ride Not Active 🔴
+                </span>
+              )}
+            </p>
+
+            {!rideActive ? (
+              <button
+                onClick={startRide}
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg"
+              >
+                🚗 Start Ride
+              </button>
+            ) : (
+              <button
+                onClick={endRide}
+                className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg"
+              >
+                🏁 End Ride
+              </button>
+            )}
+          </div>
+
+          {/* Motion Sensor  */}
+
           <div className="bg-white shadow rounded-xl p-6">
             <h2 className="text-xl font-semibold mb-3">📱 Motion Sensor</h2>
 
