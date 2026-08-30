@@ -434,84 +434,143 @@ function Dashboard() {
               </p>
             </div>
           </div>
+
           {/* Ride Mode */}
 
-          <div className="bg-white shadow rounded-xl p-6">
-            <h2 className="text-xl font-semibold mb-3">🚗 Ride Mode</h2>
+          {/* Ride Mode */}
 
-            <p className="text-gray-600 mb-4">
-              Status:{" "}
-              {rideActive ? (
-                <span className="text-green-600 font-semibold">
-                  Ride Active 🟢
-                </span>
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#160a24]/70 p-6 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-300 hover:border-pink-400/30 hover:shadow-[0_20px_60px_rgba(236,72,153,0.08)]">
+            {/* Background Glow */}
+            <div className="absolute -top-16 -right-16 h-36 w-36 rounded-full bg-pink-500/10 blur-3xl pointer-events-none"></div>
+
+            <div className="relative z-10">
+              <div className="flex items-center justify-between gap-4 mb-4">
+                <h2 className="text-xl font-semibold text-white">
+                  🚗 Ride Mode
+                </h2>
+
+                {/* Status Indicator */}
+                <div
+                  className={`h-3 w-3 rounded-full ${
+                    rideActive
+                      ? "bg-green-400 shadow-[0_0_12px_rgba(74,222,128,0.9)]"
+                      : "bg-red-400 shadow-[0_0_12px_rgba(248,113,113,0.6)]"
+                  }`}
+                ></div>
+              </div>
+
+              <p className="text-gray-400 mb-5">
+                Status:{" "}
+                {rideActive ? (
+                  <span className="text-green-400 font-semibold">
+                    Ride Active 🟢
+                  </span>
+                ) : (
+                  <span className="text-gray-400 font-semibold">
+                    Ride Not Active 🔴
+                  </span>
+                )}
+              </p>
+
+              {!rideActive ? (
+                <button
+                  onClick={startRide}
+                  className="w-full sm:w-auto bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 text-[#0a0512] font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(236,72,153,0.25)] active:scale-[0.98]"
+                >
+                  🚗 Start Ride
+                </button>
               ) : (
-                <span className="text-gray-600 font-semibold">
-                  Ride Not Active 🔴
-                </span>
+                <button
+                  onClick={endRide}
+                  className="w-full sm:w-auto border border-red-400/30 bg-red-500/10 text-red-300 font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:bg-red-500/20 hover:border-red-400/60 hover:shadow-[0_0_25px_rgba(248,113,113,0.15)] active:scale-[0.98]"
+                >
+                  🏁 End Ride
+                </button>
               )}
-            </p>
-
-            {!rideActive ? (
-              <button
-                onClick={startRide}
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg"
-              >
-                🚗 Start Ride
-              </button>
-            ) : (
-              <button
-                onClick={endRide}
-                className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg"
-              >
-                🏁 End Ride
-              </button>
-            )}
+            </div>
           </div>
 
           {/* Motion Sensor  */}
 
-          <div className="bg-white shadow rounded-xl p-6">
-            <h2 className="text-xl font-semibold mb-3">📱 Motion Sensor</h2>
+          {/* Motion Sensor */}
 
-            <p className="text-gray-600">
-              Status:{" "}
-              {motionWorking ? (
-                <span className="text-green-600 font-semibold">Working ✅</span>
-              ) : (
-                <span className="text-red-600 font-semibold">
-                  Waiting for sensor...
-                </span>
-              )}
-            </p>
-            <p className="text-gray-600 mt-2">
-              Motion Magnitude: {motionMagnitude.toFixed(2)}
-            </p>
-            <button
-              onClick={toggleAccidentDetection}
-              className={`mt-4 px-5 py-2 rounded-lg text-white ${
-                accidentDetectionEnabled
-                  ? "bg-green-600 hover:bg-green-700"
-                  : "bg-gray-600 hover:bg-gray-700"
-              }`}
-            >
-              {accidentDetectionEnabled
-                ? "🟢 Accident Detection ON"
-                : "🔴 Accident Detection OFF"}
-            </button>
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#160a24]/70 p-6 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-300 hover:border-cyan-400/30 hover:shadow-[0_20px_60px_rgba(34,211,238,0.08)]">
+            {/* Background Glow */}
+            <div className="absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-cyan-400/10 blur-3xl pointer-events-none"></div>
 
-            {accidentDetected && (
-              <div className="mt-4 bg-red-100 border border-red-400 p-4 rounded-lg">
-                <p className="text-red-700 font-bold">
-                  🚨 POSSIBLE ACCIDENT DETECTED!
+            <div className="relative z-10">
+              <div className="flex items-center justify-between gap-4 mb-4">
+                <h2 className="text-xl font-semibold text-white">
+                  📱 Motion Sensor
+                </h2>
+
+                {/* Sensor Indicator */}
+                <div
+                  className={`h-3 w-3 rounded-full ${
+                    motionWorking
+                      ? "bg-green-400 shadow-[0_0_12px_rgba(74,222,128,0.9)]"
+                      : "bg-red-400 shadow-[0_0_12px_rgba(248,113,113,0.6)]"
+                  }`}
+                ></div>
+              </div>
+
+              {/* Sensor Status */}
+              <p className="text-gray-400">
+                Status:{" "}
+                {motionWorking ? (
+                  <span className="text-green-400 font-semibold">
+                    Working ✅
+                  </span>
+                ) : (
+                  <span className="text-red-400 font-semibold">
+                    Waiting for sensor...
+                  </span>
+                )}
+              </p>
+
+              {/* Motion Magnitude */}
+              <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-1">
+                  Motion Magnitude
+                </p>
+
+                <p className="text-3xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                  {motionMagnitude.toFixed(2)}
                 </p>
               </div>
-            )}
-            {cooldownActive && (
-              <p className="text-orange-600 font-semibold mt-2">
-                ⏳ Accident detection cooldown active...
-              </p>
-            )}
+
+              {/* Accident Detection Toggle */}
+              <button
+                onClick={toggleAccidentDetection}
+                className={`mt-5 w-full sm:w-auto px-5 py-3 rounded-xl font-bold transition-all duration-300 active:scale-[0.98] ${
+                  accidentDetectionEnabled
+                    ? "border border-green-400/30 bg-green-500/10 text-green-300 hover:bg-green-500/20 hover:shadow-[0_0_25px_rgba(74,222,128,0.12)]"
+                    : "border border-white/10 bg-white/[0.05] text-gray-300 hover:border-pink-400/30 hover:bg-pink-500/10"
+                }`}
+              >
+                {accidentDetectionEnabled
+                  ? "🟢 Accident Detection ON"
+                  : "🔴 Accident Detection OFF"}
+              </button>
+
+              {/* Accident Warning */}
+              {accidentDetected && (
+                <div className="mt-5 rounded-xl border border-red-400/30 bg-red-500/10 p-4 shadow-[0_0_25px_rgba(248,113,113,0.08)]">
+                  <p className="font-bold text-red-300">
+                    🚨 POSSIBLE ACCIDENT DETECTED!
+                  </p>
+                </div>
+              )}
+
+              {/* Cooldown */}
+              {cooldownActive && (
+                <div className="mt-4 rounded-xl border border-orange-400/20 bg-orange-500/10 px-4 py-3">
+                  <p className="text-orange-300 font-semibold">
+                    ⏳ Accident detection cooldown active...
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="bg-white shadow rounded-xl p-6">
