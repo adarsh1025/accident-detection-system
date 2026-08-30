@@ -351,10 +351,46 @@ function Dashboard() {
 
       {/* Dashboard Content */}
       <div className="relative z-10 p-4 sm:p-6 lg:p-8 max-w-[1500px] mx-auto">
-        <h1 className="text-2xl font-bold">
-          Welcome, {user ? user.name : "Loading..."} 👋
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        {/* Dashboard Top Header */}
+        <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          {/* Welcome Text */}
+          <div>
+            <p className="mb-2 text-xs sm:text-sm font-bold uppercase tracking-[0.3em] text-pink-400">
+              SafeRide AI 🚑
+            </p>
+
+            <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+              Welcome,{" "}
+              <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                {user ? user.name : "Loading..."}
+              </span>{" "}
+              👋
+            </h1>
+
+            {/* Small Gradient Line */}
+            <div className="mt-4 h-[2px] w-28 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 shadow-[0_0_12px_rgba(236,72,153,0.5)]"></div>
+          </div>
+
+          {/* User Profile Pill */}
+          <div className="self-start sm:self-auto">
+            <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 backdrop-blur-xl shadow-lg">
+              {/* Avatar */}
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 via-purple-400 to-pink-500 text-[#0a0512] font-bold shadow-[0_0_18px_rgba(63,240,255,0.25)]">
+                {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+              </div>
+
+              {/* User Name */}
+              <div className="pr-3">
+                <p className="text-sm font-semibold text-white">
+                  {user ? user.name : "Loading..."}
+                </p>
+
+                <p className="text-xs text-gray-400">SafeRide AI</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white shadow rounded-xl p-6">
             <h2 className="text-xl font-semibold mb-2">📍 Live Location</h2>
 
