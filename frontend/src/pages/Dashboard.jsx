@@ -391,29 +391,49 @@ function Dashboard() {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white shadow rounded-xl p-6">
-            <h2 className="text-xl font-semibold mb-2">📍 Live Location</h2>
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#160a24]/70 p-6 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-300 hover:border-pink-400/30 hover:shadow-[0_20px_60px_rgba(236,72,153,0.08)]">
+            <h2 className="text-xl font-semibold mb-3 text-white">
+              📍 Live Location
+            </h2>
 
             {location ? (
               <>
-                <p className="text-gray-600">Latitude: {location.latitude}</p>
+                <p className="text-gray-400">
+                  Latitude:{" "}
+                  <span className="text-cyan-300 font-medium">
+                    {location.latitude}
+                  </span>
+                </p>
 
-                <p className="text-gray-600">Longitude: {location.longitude}</p>
+                <p className="text-gray-400 mb-4">
+                  Longitude:{" "}
+                  <span className="text-cyan-300 font-medium">
+                    {location.longitude}
+                  </span>
+                </p>
                 <MapView location={location} />
               </>
             ) : (
-              <p className="text-gray-600">Fetching location...</p>
+              <p className="text-gray-400">Fetching location...</p>
             )}
           </div>
 
-          <div className="bg-white shadow rounded-xl p-6">
-            <h2 className="text-xl font-semibold mb-2">
-              👨‍👩‍👧 Emergency Contacts
-            </h2>
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#160a24]/70 p-6 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-300 hover:border-cyan-400/30 hover:shadow-[0_20px_60px_rgba(34,211,238,0.08)]">
+            {/* Glow */}
+            <div className="absolute -top-16 -right-16 h-36 w-36 rounded-full bg-cyan-400/10 blur-3xl pointer-events-none"></div>
 
-            <p className="text-gray-600">Total Contacts: {contactsCount}</p>
+            <div className="relative z-10">
+              <h2 className="text-xl font-semibold mb-4 text-white">
+                👨‍👩‍👧 Emergency Contacts
+              </h2>
+
+              <p className="text-sm text-gray-400">Total Contacts</p>
+
+              <p className="mt-1 text-4xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                {contactsCount}
+              </p>
+            </div>
           </div>
-
           {/* Ride Mode */}
 
           <div className="bg-white shadow rounded-xl p-6">
