@@ -323,10 +323,34 @@ function Dashboard() {
     }
   }, [location]);
   return (
-    <>
-      <Navbar />
+    <div className="relative min-h-screen overflow-x-hidden bg-gradient-to-b from-[#160a24] via-[#0f0719] to-[#0a0512] text-[#f1e9ff]">
+      {/* Background Pink Glow */}
+      <div className="fixed -top-40 left-[60%] -translate-x-1/2 w-[420px] h-[420px] rounded-full bg-gradient-to-b from-pink-500/30 to-purple-500/10 blur-3xl pointer-events-none"></div>
 
-      <div className="p-6">
+      {/* Background Cyan Glow */}
+      <div className="fixed bottom-[-180px] left-1/2 -translate-x-1/2 w-[600px] h-[350px] rounded-full bg-cyan-400/10 blur-3xl pointer-events-none"></div>
+
+      {/* Cyber Grid Background */}
+      <div
+        className="
+        fixed
+        inset-x-0
+        bottom-0
+        h-[45vh]
+        opacity-[0.07]
+        pointer-events-none
+        [background-image:linear-gradient(rgba(63,240,255,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(63,240,255,0.5)_1px,transparent_1px)]
+        [background-size:55px_55px]
+      "
+      ></div>
+
+      {/* Existing Navbar */}
+      <div className="relative z-20">
+        <Navbar />
+      </div>
+
+      {/* Dashboard Content */}
+      <div className="relative z-10 p-4 sm:p-6 lg:p-8 max-w-[1500px] mx-auto">
         <h1 className="text-2xl font-bold">
           Welcome, {user ? user.name : "Loading..."} 👋
         </h1>
@@ -564,7 +588,7 @@ function Dashboard() {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
