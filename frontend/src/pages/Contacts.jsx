@@ -112,6 +112,44 @@ function Contacts() {
 
           <div className="mt-4 h-[2px] w-28 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 shadow-[0_0_12px_rgba(236,72,153,0.5)]"></div>
         </div>
+
+        {/* Contact Summary */}
+        <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Total Contacts */}
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#160a24]/70 p-5 backdrop-blur-xl">
+            <div className="absolute -top-12 -right-12 h-28 w-28 rounded-full bg-cyan-400/10 blur-3xl pointer-events-none"></div>
+
+            <div className="relative z-10">
+              <p className="text-xs uppercase tracking-[0.2em] text-gray-500">
+                Total Contacts
+              </p>
+
+              <p className="mt-2 text-4xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                {contacts.length}
+              </p>
+            </div>
+          </div>
+
+          {/* Form Status */}
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#160a24]/70 p-5 backdrop-blur-xl">
+            <div className="absolute -bottom-12 -left-12 h-28 w-28 rounded-full bg-pink-500/10 blur-3xl pointer-events-none"></div>
+
+            <div className="relative z-10">
+              <p className="text-xs uppercase tracking-[0.2em] text-gray-500">
+                Contact Form
+              </p>
+
+              <p
+                className={`mt-2 text-lg font-semibold ${
+                  isEditing ? "text-orange-300" : "text-green-300"
+                }`}
+              >
+                {isEditing ? "✏️ Editing Contact" : "➕ Add New Contact"}
+              </p>
+            </div>
+          </div>
+        </div>
+
         <ContactForm
           onAdd={handleAddContact}
           editData={editData}
