@@ -53,9 +53,9 @@ const getNearbyHospitals = async (req, res) => {
   const query = `
     [out:json][timeout:15];
     (
-      node["amenity"="hospital"](around:5000,${latitude},${longitude});
-      way["amenity"="hospital"](around:5000,${latitude},${longitude});
-      relation["amenity"="hospital"](around:5000,${latitude},${longitude});
+      node["amenity"="hospital"](around:20000,${latitude},${longitude});
+      way["amenity"="hospital"](around:20000,${latitude},${longitude});
+      relation["amenity"="hospital"](around:20000,${latitude},${longitude});
     );
     out center;
   `;
